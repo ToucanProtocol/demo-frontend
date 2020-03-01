@@ -45,10 +45,15 @@ jQuery(async ($) => {
         let methodFootprint = event.args.methodFootprint;
 
         if ( totalGasOffset || methodFootprint ) {
+            let icons = $('.polluter__spin');
+            $(icons[0]).find('img').attr('src', './images/3.png');
+            $(icons[1]).find('img').attr('src', './images/4.png');
+            $('body').addClass('clean');
             $('pre').append(
                 `totalGasOffset: ${totalGasOffset}<br />
                 methodFootprint: ${methodFootprint}`
             );
+            $(this).hide();
         }
 
         /*
