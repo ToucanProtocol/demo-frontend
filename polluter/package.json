@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "@types/jquery": "^3.3.33",
-    "ethers": "^4.0.45"
+    "ethers": "^4.0.45",
+    "jquery": "^3.4.1",
+    "watchify": "^3.11.1"
   }
 }
