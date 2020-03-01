@@ -5,6 +5,10 @@ body {
     background:url('./images/bg.jpeg');
     background-size:cover;
     background-position:center;
+
+    &.clean {
+        background:url('./images/bg-new.jpg');
+    }
 }
 
 a {
