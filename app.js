@@ -1,0 +1,91 @@
+"use strict";
+var __awaiter = undefined && undefined.__awaiter || function (o, a, u, s) {
+  return new (u || (u = Promise))(function (e, t) {
+    function r(e) {
+      try {
+        i(s.next(e));
+      } catch (e) {
+        t(e);
+      }
+    }function n(e) {
+      try {
+        i(s.throw(e));
+      } catch (e) {
+        t(e);
+      }
+    }function i(t) {
+      t.done ? e(t.value) : new u(function (e) {
+        e(t.value);
+      }).then(r, n);
+    }i((s = s.apply(o, a || [])).next());
+  });
+},
+    __generator = undefined && undefined.__generator || function (r, n) {
+  function e(t) {
+    return function (e) {
+      return function (t) {
+        if (i) throw new TypeError("Generator is already executing.");for (; u;) {
+          try {
+            if (i = 1, o && (a = o[2 & t[0] ? "return" : t[0] ? "throw" : "next"]) && !(a = a.call(o, t[1])).done) return a;switch (o = 0, a && (t = [0, a.value]), t[0]) {case 0:case 1:
+                a = t;break;case 4:
+                return u.label++, { value: t[1], done: !1 };case 5:
+                u.label++, o = t[1], t = [0];continue;case 7:
+                t = u.ops.pop(), u.trys.pop();continue;default:
+                if (!(a = 0 < (a = u.trys).length && a[a.length - 1]) && (6 === t[0] || 2 === t[0])) {
+                  u = 0;continue;
+                }if (3 === t[0] && (!a || t[1] > a[0] && t[1] < a[3])) {
+                  u.label = t[1];break;
+                }if (6 === t[0] && u.label < a[1]) {
+                  u.label = a[1], a = t;break;
+                }if (a && u.label < a[2]) {
+                  u.label = a[2], u.ops.push(t);break;
+                }a[2] && u.ops.pop(), u.trys.pop();continue;}t = n.call(r, u);
+          } catch (e) {
+            t = [6, e], o = 0;
+          } finally {
+            i = a = 0;
+          }
+        }if (5 & t[0]) throw t[1];return { value: t[0] ? t[1] : void 0, done: !0 };
+      }([t, e]);
+    };
+  }var i,
+      o,
+      a,
+      t,
+      u = { label: 0, sent: function sent() {
+      if (1 & a[0]) throw a[1];return a[1];
+    }, trys: [], ops: [] };return t = { next: e(0), throw: e(1), return: e(2) }, "function" == typeof Symbol && (t[Symbol.iterator] = function () {
+    return this;
+  }), t;
+},
+    _this = undefined;Object.defineProperty(exports, "__esModule", { value: !0 });var ethers_1 = require("ethers"),
+    polluterAbi = require("./abi/polluter.json"),
+    $ = jQuery,
+    web3 = window.web3 || void 0,
+    utils = ethers_1.ethers.utils,
+    provider = new ethers_1.ethers.providers.Web3Provider(web3.currentProvider),
+    signer = provider.getSigner(),
+    nonce = 0,
+    transaction = { nonce: nonce++, gasLimit: 3e5, gasPrice: utils.bigNumberify("20000000000"), to: "0x6a1B0C693DD4AA99bA8E93247AA221Fb30525Cfe", value: utils.parseEther("1.0"), data: "0x", chainId: ethers_1.ethers.utils.getNetwork("rinkeby").chainId };jQuery(function (t) {
+  return __awaiter(_this, void 0, void 0, function () {
+    var i;return __generator(this, function (e) {
+      return t(".js--connect").click(function (t) {
+        return __awaiter(this, void 0, void 0, function () {
+          return __generator(this, function (e) {
+            switch (e.label) {case 0:
+                return t.preventDefault(), i ? (alert("already enabled"), [2]) : [4, window.ethereum.enable()];case 1:
+                return i = e.sent(), [2];}
+          });
+        });
+      }), t(".js--pollute").click(function (n) {
+        return __awaiter(this, void 0, void 0, function () {
+          var t, r;return __generator(this, function (e) {
+            switch (e.label) {case 0:
+                return n.preventDefault(), i ? [4, new ethers_1.ethers.Contract("0x57AaFA7eA3D66e2C9540d455BDBe093De9DB6bf4", polluterAbi, signer).iterator()] : (alert("connect wallet"), [2]);case 1:
+                return t = e.sent(), r = t.wait(1), console.log(r), [2];}
+          });
+        });
+      }), [2];
+    });
+  });
+});
