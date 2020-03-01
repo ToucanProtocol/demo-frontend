@@ -1,0 +1,42 @@
+{
+  "name": "@co2ken/web3-co2",
+  "version": "0.0.1",
+  "description": "dApp code for webflow demo",
+  "author": "Adam Spiers <blockchain@adamspiers.org>",
+  "homepage": "https://github.com/CO2ken/demo-frontend",
+  "license": "ISC",
+  "keywords": [
+    "carbon",
+    "co2",
+    "ethereum"
+  ],
+  "types": "lib/index",
+  "main": "lib/index",
+  "directories": {
+    "lib": "build",
+    "test": "__tests__"
+  },
+  "files": [
+    "build"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CO2ken/demo-frontend.git"
+  },
+  "scripts": {
+    "compile": "tsc",
+    "build": "tsc"
+  },
+  "bugs": {
+    "url": "https://github.com/CO2ken/demo-frontend/issues"
+  },
+  "dependencies": {
+    "ethers": "^4.0.41",
+    "babel-polyfill": "^6.26.0"
+  },
+  "devDependencies": {
+    "@types/node": "^13.5.0",
+    "typescript": "^3.8.3",
+    "parcel-bundler": "^1.12.4"
+  }
+}
