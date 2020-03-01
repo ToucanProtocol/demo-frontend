@@ -25,14 +25,16 @@
   },
   "scripts": {
     "compile": "tsc",
-    "build": "tsc"
+    "parcel": "parcel build src/dapp.ts",
+    "build": "npm run compile && npm run parcel"
   },
   "bugs": {
     "url": "https://github.com/CO2ken/demo-frontend/issues"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "ethers": "^4.0.41",
-    "babel-polyfill": "^6.26.0"
+    "jquery": "^3.4.1"
   },
   "devDependencies": {
     "@types/node": "^13.5.0",
