@@ -63,9 +63,7 @@ var __awaiter = undefined && undefined.__awaiter || function (o, a, s, u) {
     web3 = window.web3 || void 0,
     utils = ethers_1.ethers.utils,
     provider = new ethers_1.ethers.providers.Web3Provider(web3.currentProvider),
-    signer = provider.getSigner(),
-    nonce = 0,
-    transaction = { nonce: nonce++, gasLimit: 3e5, gasPrice: utils.bigNumberify("20000000000"), to: "0x6a1B0C693DD4AA99bA8E93247AA221Fb30525Cfe", value: utils.parseEther("1.0"), data: "0x", chainId: ethers_1.ethers.utils.getNetwork("rinkeby").chainId };jQuery(function (l) {
+    signer = provider.getSigner();jQuery(function (l) {
   return __awaiter(_this, void 0, void 0, function () {
     var u;return __generator(this, function (e) {
       return l(".js--connect").click(function (t) {
