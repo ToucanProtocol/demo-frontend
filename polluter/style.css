@@ -9,11 +9,14 @@ body {
     background: url("./images/bg-new.jpg"); }
 
 a {
-  color: #000;
+  color: #fff;
   font-weight: 400;
   text-decoration: none; }
+  a:hover {
+    color: #32ca76; }
 
 .btn {
+  color: #000;
   background-color: #32ca76;
   border-radius: 2px;
   border: 2px solid #000;
@@ -23,6 +26,8 @@ a {
   -webkit-transition: background-color 0.2s;
   -o-transition: background-color 0.2s;
   transition: background-color 0.2s; }
+  .btn:hover {
+    color: #000; }
   .btn.sent {
     color: black; }
 
@@ -82,7 +87,10 @@ img {
     margin-left: 50%;
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
-    transform: translateX(-50%); }
+    transform: translateX(-50%);
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 500px;
+    flex: 0 0 500px; }
   .polluter__spin {
     -webkit-animation-name: spin;
     animation-name: spin;

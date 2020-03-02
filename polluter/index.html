@@ -1,33 +1,36 @@
 <head>
-    <script>var exports = {};</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="./app.bundle.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
-    <link href="./style.css" rel="stylesheet" />
+  <script>var exports = {};</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/2303d83451.js" crossorigin="anonymous"></script>
+  <script src="./app.bundle.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+  <link href="./style.css" rel="stylesheet" />
 </head>
+
 <body>
-    <div class="header">
-        <div class="container">
-            <div></div>
-            <a href="#" class="btn js--connect">Connect Wallet</a>
-        </div>
+  <div class="header">
+    <div class="container">
+      <div></div>
+      <a href="#" class="js--test-dai" style="margin:0 20px;">Get Test Dai <i class="fas fa-faucet-drip"></i></a>
+      <a href="#" class="btn js--connect">Connect Wallet</a>
     </div>
-    <div class="polluter">
-        <div class="polluter__spin">
-            <img src="./images/1.gif" />
-        </div>
-        <div class="polluter__button">
-            <a href="#" class="btn js--pollute">POLLUTE</a>
-        </div>
-        <div class="polluter__spin">
-            <img src="./images/2.png" />
-        </div>
-        <pre>
+  </div>
+  <div class="polluter">
+    <div class="polluter__spin">
+      <img src="./images/1.gif" />
+    </div>
+    <div class="polluter__button">
+      <a href="#" class="btn js--pollute">POLLUTE</a>
+    </div>
+    <div class="polluter__spin">
+      <img src="./images/2.png" />
+    </div>
+    <pre>
         contract Polluter is Green {
             function dirtyFn() public offset(1000000) {
                 
             }
         }
         </pre>
-    </div>
+  </div>
 </body>
