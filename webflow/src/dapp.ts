@@ -5,6 +5,11 @@ import { ethers } from "ethers";
 let jQuery = (<any>window).jQuery || undefined;
 let $ = jQuery;
 
+function triggerChangeOnElement(selector) {
+  const elem = document.querySelector(selector);
+  const event = new Event('input');
+  elem.dispatchEvent(event);
+}
 
 jQuery(async ($) => {
   const provider = new ethers.providers.Web3Provider((<any>window).web3.currentProvider);
@@ -17,5 +22,6 @@ jQuery(async ($) => {
     let tonnes = $(this).val();
     $("#offset-dai").val(price * tonnes);
     $("#offset-payment").val(price * tonnes * 1e18);
+    triggerChangeOnElement("#offset-payment");
   });
 });
