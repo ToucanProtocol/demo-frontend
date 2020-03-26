@@ -20,6 +20,10 @@ jQuery(async ($) => {
   let price = await ethco2.getCo2kenPrice(provider);
   (<any>window).price = price;
 
+  dappHero.listenToContractOutputChange(event => {
+    console.log("Event Changes", event)
+  });
+
   $("#tonnes-co2").on('input', function() {
     let tonnes = $(this).val();
     $("#offset-dai").val(price * tonnes);
