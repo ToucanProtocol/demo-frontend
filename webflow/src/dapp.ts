@@ -5,10 +5,17 @@ import { ethers } from "ethers";
 let jQuery = (<any>window).jQuery || undefined;
 let $ = jQuery;
 
+function get_provider () {
+  if (window.dappHero && window.dappHero.provider) {
+    return window.dappHero.provider;
+  }
+
+  return new ethers.providers.Web3Provider((<any>window).web3.currentProvider);
+}
 
 jQuery(async ($) => {
-  const provider = new ethers.providers.Web3Provider((<any>window).web3.currentProvider);
-  (<any>window).foo = provider;
+  let provider = get_provider();
+  (<any>window).co2ken_provider = provider;
   //const signer = provider.getSigner();
   let price = await ethco2.getCo2kenPrice(provider);
   (<any>window).price = price;
