@@ -25,7 +25,7 @@
   },
   "scripts": {
     "compile": "tsc",
-    "parcel": "parcel build src/dapp.ts",
+    "parcel": "parcel build --public-url . src/dapp.ts",
     "build": "npm run compile && npm run parcel"
   },
   "bugs": {
