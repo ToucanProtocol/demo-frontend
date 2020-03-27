@@ -26,14 +26,33 @@ jQuery(async ($) => {
   let price = await ethco2.getCo2kenPrice(provider);
   (<any>window).price = price;
 
-  dappHero.listenToContractOutputChange(event => {
-    console.log("Event Changes", event)
-  });
-
   $("#tonnes-co2").on('input', function() {
     let tonnes = $(this).val();
     $("#offset-dai").val(price * tonnes);
     $("#offset-payment").val(price * tonnes * 1e18);
     triggerChangeOnElement("#offset-payment");
+  });
+
+  let dappHero = (<any>window)["dappHero"];
+  dappHero.listenToContractOutputChange(event => {
+    //console.log("Event id", event.element.id);
+    //console.log("Event Changes", event);
+    if (!event.value) {
+      return;
+    }
+    switch (event.element.id) {
+    case "get-token-supply":
+      let co2kens = parseInt(event.value._hex) / 1e18;
+      $("#field-supply-token").val(co2kens.toFixed(2) + " CO2kens");
+      break;
+    case "get-total-dai":
+      let dai = parseInt(event.value._hex) / 1e18;
+      $("#field-DAI-amount").val(dai.toFixed(2) + " DAI");
+      break;
+    case "get-gas-footprint":
+      let g = parseInt(event.value._hex) / 1e12;
+      $("#field-co2-gas").val(g.toFixed(2) + "g CO2");
+      break;
+    }
   });
 });
