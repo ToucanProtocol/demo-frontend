@@ -12,8 +12,9 @@ function triggerChangeOnElement(selector) {
 }
 
 function get_provider () {
-  if (window.dappHero && window.dappHero.provider) {
-    return window.dappHero.provider;
+  let dappHero = (<any>window).dappHero;
+  if (dappHero && dappHero.provider) {
+    return dappHero.provider;
   }
 
   return new ethers.providers.Web3Provider((<any>window).web3.currentProvider);
