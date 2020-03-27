@@ -61,15 +61,15 @@ async function setupCO2kenEventHandlers () {
     }
     switch (event.element.id) {
     case "get-token-supply":
-      let co2kens = parseInt(event.value._hex) / 1e18;
+      let co2kens = event.value / 1e18;
       $("#field-supply-token").val(co2kens.toFixed(2) + " CO2kens");
       break;
     case "get-total-dai":
-      let dai = parseInt(event.value._hex) / 1e18;
+      let dai = event.value / 1e18;
       $("#field-DAI-amount").val(dai.toFixed(2) + " DAI");
       break;
     case "get-gas-footprint":
-      let g = parseInt(event.value._hex) / 1e12;
+      let g = event.value / 1e12;
       $("#field-co2-gas").val(g.toFixed(2) + "g CO2");
       break;
     }
