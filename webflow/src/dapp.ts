@@ -20,15 +20,29 @@ function get_provider () {
   return new ethers.providers.Web3Provider((<any>window).web3.currentProvider);
 }
 
-jQuery(async ($) => {
+async function setupCO2ken () {
+  await setupCO2kenEventHandlers();
+  await setupCO2kenData();
+}
+
+async function setupCO2kenData () {
+  console.log("setupCO2kenData");
   let provider = get_provider();
   (<any>window).co2ken_provider = provider;
   //const signer = provider.getSigner();
   let price = await ethco2.getCo2kenPrice(provider);
-  (<any>window).price = price;
+  (<any>window).CO2kenPrice = price;
+  console.log("window.CO2kenPrice is now:", price);
+}
 
+async function setupCO2kenEventHandlers () {
   $("#tonnes-co2").on('input', function() {
     let tonnes = $(this).val();
+    let price = (<any>window).CO2kenPrice;
+    if (!price) {
+      console.log("Don't have window.CO2kenPrice yet");
+      return;
+    }
     $("#offset-dai").val(price * tonnes);
     $("#offset-payment").val(price * tonnes * 1e18);
     triggerChangeOnElement("#offset-payment");
@@ -56,4 +70,12 @@ jQuery(async ($) => {
       break;
     }
   });
+}
+
+
+jQuery(($) => {
+  // Try to workaround documentReady happening before dappHero is
+  // ready.  Soon dappHero will give us their own documentReady-like
+  // event handler to bind to.
+  setTimeout(async () => setupCO2ken(), 2000);
 });
