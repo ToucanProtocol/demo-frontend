@@ -14,10 +14,14 @@ function triggerChangeOnElement(selector) {
 function get_provider () {
   let dappHero = (<any>window).dappHero;
   if (dappHero && dappHero.provider) {
-    return dappHero.provider;
+    console.log("dappHero.provider:", dappHero.provider);
+    // FIXME
+    // return dappHero.provider;
   }
 
-  return new ethers.providers.Web3Provider((<any>window).web3.currentProvider);
+  let w3p = new ethers.providers.Web3Provider((<any>window).web3.currentProvider);
+  console.log("ethers web3 currentProvider:", w3p);
+  return w3p;
 }
 
 async function setupCO2ken () {
