@@ -1,5 +1,5 @@
 // import "babel-polyfill";
-import * as ethco2 from "../../../eth-co2/dist/eth-co2";
+import * as ethco2 from "eth-co2";
 import { ethers } from "ethers";
 
 let jQuery = (<any>window).jQuery || undefined;
