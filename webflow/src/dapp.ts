@@ -64,19 +64,25 @@ async function updateCO2kenData () {
   co2ken.gasCarbonFootprint = await ethco2.getGasCarbonFootprint(provider);
   if (co2ken.gasCarbonFootprint) {
     let grammes = co2ken.gasCarbonFootprint / 1e12;
-    $("#field-co2-gas").val(grammes.toFixed(2) + "g CO2");
+    let display = grammes.toFixed(2) + "g CO2";
+    $("#field-co2-gas").val(display);
+    $("#field-co2-gas").attr("value", display);
   }
 
   co2ken.totalSupply = await ethco2.getCo2kenSupply(provider);
   if (co2ken.totalSupply) {
     let co2kens = co2ken.totalSupply / 1e18;
-    $("#field-supply-token").val(co2kens.toFixed(2) + " CO2kens");
+    let display = co2kens.toFixed(2) + " CO2kens";
+    $("#field-supply-token").val(display);
+    $("#field-supply-token").attr("value", display);
   }
 
   co2ken.paymentsBalance = await ethco2.getCo2kenPaymentsBalance(provider);
   if (co2ken.paymentsBalance) {
     let balance = co2ken.paymentsBalance / 1e18;
-    $("#field-DAI-amount").val(balance.toFixed(2) + " DAI");
+    let display = balance.toFixed(2) + " DAI";
+    $("#field-DAI-amount").val(display);
+    $("#field-DAI-amount").attr("value", display);
   }
 
   console.debug("window.co2ken is now:", co2ken);
