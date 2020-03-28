@@ -31,19 +31,28 @@ async function setupCO2ken () {
 async function setupCO2kenData (dappHero) {
   console.log("setupCO2kenData");
   let provider = getProvider(dappHero);
-  (<any>window).co2ken_provider = provider;
   //const signer = provider.getSigner();
-  let price = await ethco2.getCo2kenPrice(provider);
-  (<any>window).CO2kenPrice = price;
-  console.log("window.CO2kenPrice is now:", price.toNumber());
+
+  let co2ken = {
+    provider: provider,
+    price: await ethco2.getCo2kenPrice(provider),
+    gasCarbonFootprint: await ethco2.getGasCarbonFootprint(provider),
+  };
+  (<any>window).co2ken = co2ken;
+  console.log("window.co2ken is now:", co2ken);
+
+  if (co2ken.gasCarbonFootprint) {
+    let grammes = co2ken.gasCarbonFootprint / 1e12;
+    $("#field-co2-gas").val(grammes.toFixed(2) + "g CO2");
+  }
 }
 
 function setupCO2kenInputHandler () {
   $("#tonnes-co2").on("input", function() {
     let tonnes = $(this).val();
-    let price = (<any>window).CO2kenPrice;
+    let price = (<any>window).co2ken.price;
     if (!price) {
-      console.log("Don't have window.CO2kenPrice yet");
+      console.log("Don't have window.co2ken.price yet");
       return;
     }
     $("#offset-dai").val(price * tonnes);
@@ -78,10 +87,6 @@ function setupCO2kenOutputsHandler (dappHero) {
     case "get-total-dai":
       let dai = event.value / 1e18;
       $("#field-DAI-amount").val(dai.toFixed(2) + " DAI");
-      break;
-    case "get-gas-footprint":
-      let g = event.value / 1e12;
-      $("#field-co2-gas").val(g.toFixed(2) + "g CO2");
       break;
     }
   });
