@@ -11,7 +11,7 @@ function triggerChangeOnElement(selector) {
   elem.dispatchEvent(event);
 }
 
-function get_provider () {
+function getProvider () {
   let dappHero = (<any>window).dappHero;
   if (dappHero && dappHero.provider) {
     console.log("dappHero.provider:", dappHero.provider);
@@ -32,7 +32,7 @@ async function setupCO2ken () {
 
 async function setupCO2kenData () {
   console.log("setupCO2kenData");
-  let provider = get_provider();
+  let provider = getProvider();
   (<any>window).co2ken_provider = provider;
   //const signer = provider.getSigner();
   let price = await ethco2.getCo2kenPrice(provider);
