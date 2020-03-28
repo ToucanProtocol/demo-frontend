@@ -38,6 +38,7 @@ async function setupCO2kenData (dappHero) {
     price: await ethco2.getCo2kenPrice(provider),
     gasCarbonFootprint: await ethco2.getGasCarbonFootprint(provider),
     totalSupply: await ethco2.getCo2kenSupply(provider),
+    paymentsBalance: await ethco2.getCo2kenPaymentsBalance(provider),
   };
   (<any>window).co2ken = co2ken;
   console.log("window.co2ken is now:", co2ken);
@@ -54,6 +55,11 @@ async function setupCO2kenData (dappHero) {
   if (co2ken.totalSupply) {
     let co2kens = co2ken.totalSupply / 1e18;
     $("#field-supply-token").val(co2kens.toFixed(2) + " CO2kens");
+  }
+
+  if (co2ken.paymentsBalance) {
+    let balance = co2ken.paymentsBalance / 1e18;
+    $("#field-DAI-amount").val(balance.toFixed(2) + " DAI");
   }
 }
 
@@ -88,12 +94,6 @@ function setupCO2kenOutputsHandler (dappHero) {
     //console.log("Event Changes", event);
     if (!event.value) {
       return;
-    }
-    switch (event.element.id) {
-    case "get-total-dai":
-      let dai = event.value / 1e18;
-      $("#field-DAI-amount").val(dai.toFixed(2) + " DAI");
-      break;
     }
   });
 }
