@@ -1,6 +1,8 @@
 // import "babel-polyfill";
 import * as ethco2 from "eth-co2";
 import { ethers } from "ethers";
+import { BigNumber } from "ethers/utils";
+import { Provider } from "ethers/providers";
 
 let jQuery = (<any>window).jQuery || undefined;
 let $ = jQuery;
@@ -47,55 +49,70 @@ async function setupCO2kenData() {
 }
 
 async function updateCO2kenData() {
-  console.debug("updateCO2kenData() called");
+  // console.debug("updateCO2kenData() called", (<any>window).co2ken);
 
-  let co2ken = (<any>window).co2ken;
-  let provider = co2ken.provider;
-
-  let newPrice = await ethco2.getCo2kenPrice(provider);
-  if (newPrice) {
-    newPrice = newPrice.toNumber();
-    if (!co2ken.price || co2ken.price != newPrice) {
-      co2ken.price = newPrice;
-      $("#field-token-price").val(co2ken.price + " DAI");
+  updateCO2kenDataField(
+    ethco2.getCo2kenPrice, "price", "#field-token-price",
+    val => val.toString() + " DAI",
+    oldVal => {
       let tonnes = $("#tonnes-co2").val();
       if (tonnes != "") {
         updatePaymentFields(tonnes);
+        if (oldVal) {
+          flashElement("#offset-dai");
+        }
+      }
+    }
+  );
+
+  updateCO2kenDataField(
+    ethco2.getGasCarbonFootprint, "gasCarbonFootprint", "#field-co2-gas",
+    val => (<any>val / 1e12).toFixed(2) + "g CO2");
+
+  updateCO2kenDataField(
+    ethco2.getCo2kenSupply, "totalSupply", "#field-supply-token",
+    val => (<any>val / 1e18).toFixed(2) + " CO2kens");
+
+  updateCO2kenDataField(
+    ethco2.getCo2kenPaymentsBalance, "paymentsBalance", "#field-DAI-amount",
+    val => (<any>val / 1e18).toFixed(2) + " DAI");
+}
+
+
+async function updateCO2kenDataField(contractCaller:
+                                       (prov: Provider) => Promise<BigNumber>,
+                                     property: string,
+                                     outputField: string,
+                                     formatter: (BigNumber) => string,
+                                     onUpdate?: (BigNumber) => void) {
+  let co2ken = (<any>window).co2ken;
+  let provider = co2ken.provider;
+
+  let newVal = await contractCaller(provider);
+  if (newVal) {
+    let oldVal = co2ken[property];
+    let newDisplay = formatter(newVal);
+    if (!oldVal || newDisplay != formatter(oldVal)) {
+      console.debug(`Got new value for co2ken.${property}: ${newDisplay} (${newVal})`);
+      co2ken[property] = newVal;
+      $(outputField).val(newDisplay);
+      $(outputField).attr("value", newDisplay);
+      if (oldVal) {  // Don't flash the first time when populating empty field
+        flashElement(outputField);
+      }
+      if (onUpdate) {
+        onUpdate(oldVal);
       }
     }
   }
-
-  co2ken.gasCarbonFootprint = await ethco2.getGasCarbonFootprint(provider);
-  if (co2ken.gasCarbonFootprint) {
-    let grammes = co2ken.gasCarbonFootprint / 1e12;
-    let display = grammes.toFixed(2) + "g CO2";
-    $("#field-co2-gas").val(display);
-    $("#field-co2-gas").attr("value", display);
-  }
-
-  co2ken.totalSupply = await ethco2.getCo2kenSupply(provider);
-  if (co2ken.totalSupply) {
-    let co2kens = co2ken.totalSupply / 1e18;
-    let display = co2kens.toFixed(2) + " CO2kens";
-    $("#field-supply-token").val(display);
-    $("#field-supply-token").attr("value", display);
-  }
-
-  co2ken.paymentsBalance = await ethco2.getCo2kenPaymentsBalance(provider);
-  if (co2ken.paymentsBalance) {
-    let balance = co2ken.paymentsBalance / 1e18;
-    let display = balance.toFixed(2) + " DAI";
-    $("#field-DAI-amount").val(display);
-    $("#field-DAI-amount").attr("value", display);
-  }
-
-  console.debug("window.co2ken is now:", co2ken);
 }
 
 function setupCO2kenInputHandler() {
   $("#tonnes-co2").on("input", function() {
     let tonnes = $(this).val();
-    updatePaymentFields(tonnes);
+    if (updatePaymentFields(tonnes)) {
+      flashElement("#offset-dai");
+    }
   });
 }
 
@@ -108,24 +125,24 @@ function updatePaymentFields (tonnes) {
   if (!price || tonnes == "") {
     $("#offset-dai").val("");
     $("#offset-payment").val("");
-    return;
+    return false;
   }
 
   let dai = price * tonnes;
   $("#offset-dai").val(dai + " DAI");
-  flashElement("#offset-dai");
   let payment = dai * 1e18;
   $("#offset-payment").val(payment);
   $("#offset-payment").attr("value", payment);
   // Make sure dappHero knows about the new value:
   triggerChangeOnElement("#offset-payment");
+  return true;
 }
 
 function flashElement (selector) {
   $(selector)
     .stop(true)
-    .animate({ backgroundColor: "#ffab5e" }, 500)
-    .animate({ backgroundColor: "#ffffff" }, 400);
+    .animate({ backgroundColor: "#ffab5e" }, 800)
+    .animate({ backgroundColor: "#ffffff" }, 600);
 }
 
 function setupCO2kenDappHero() {
