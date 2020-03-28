@@ -120,7 +120,7 @@ function updatePaymentFields (tonnes) {
   let price = (<any>window).co2ken.price;
 
   if (!price) {
-    console.warn("Don't have window.co2ken.price yet");
+    // console.warn("Don't have window.co2ken.price yet");
   }
   if (!price || tonnes == "") {
     $("#offset-dai").val("");
