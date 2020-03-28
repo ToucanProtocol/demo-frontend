@@ -35,6 +35,14 @@ function setupCO2kenProvider () {
 
 async function setupCO2kenData () {
   await updateCO2kenData();
+
+  let tonnes = $("#tonnes-co2");
+  if (tonnes.val() == "") {
+    let defaultTonnes = 1;
+    tonnes.val(defaultTonnes);
+    updatePaymentFields(defaultTonnes);
+  }
+
   (<any>window).setInterval(async () => { updateCO2kenData(); }, 2000);
 }
 
@@ -47,6 +55,10 @@ async function updateCO2kenData () {
   co2ken.price = await ethco2.getCo2kenPrice(provider);
   if (co2ken.price) {
     $("#field-token-price").val(co2ken.price + " DAI");
+    let tonnes = $("#tonnes-co2").val();
+    if (tonnes != "") {
+      updatePaymentFields(tonnes);
+    }
   }
 
   co2ken.gasCarbonFootprint = await ethco2.getGasCarbonFootprint(provider);
@@ -73,15 +85,27 @@ async function updateCO2kenData () {
 function setupCO2kenInputHandler () {
   $("#tonnes-co2").on("input", function() {
     let tonnes = $(this).val();
-    let price = (<any>window).co2ken.price;
-    if (!price) {
-      console.warn("Don't have window.co2ken.price yet");
-      return;
-    }
-    $("#offset-dai").val(price * tonnes);
-    $("#offset-payment").val(price * tonnes * 1e18);
-    triggerChangeOnElement("#offset-payment");
+    updatePaymentFields(tonnes);
   });
+}
+
+function updatePaymentFields (tonnes) {
+  let price = (<any>window).co2ken.price;
+
+  if (!price) {
+    console.warn("Don't have window.co2ken.price yet");
+  }
+  if (!price || tonnes == "") {
+    $("#offset-dai").val("");
+    $("#offset-payment").val("");
+    return;
+  }
+
+  let dai = price * tonnes;
+  $("#offset-dai").val(dai + " DAI");
+  $("#offset-payment").val(dai * 1e18);
+  // Make sure dappHero knows about the new value:
+  triggerChangeOnElement("#offset-payment");
 }
 
 function setupCO2kenDappHero () {
