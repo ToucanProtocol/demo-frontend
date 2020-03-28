@@ -25,7 +25,8 @@ function get_provider () {
 }
 
 async function setupCO2ken () {
-  await setupCO2kenEventHandlers();
+  setupCO2kenInputHandler();
+  setupCO2kenDappHero();
   await setupCO2kenData();
 }
 
@@ -39,7 +40,7 @@ async function setupCO2kenData () {
   console.log("window.CO2kenPrice is now:", price);
 }
 
-async function setupCO2kenEventHandlers () {
+function setupCO2kenInputHandler () {
   $("#tonnes-co2").on('input', function() {
     let tonnes = $(this).val();
     let price = (<any>window).CO2kenPrice;
@@ -51,8 +52,17 @@ async function setupCO2kenEventHandlers () {
     $("#offset-payment").val(price * tonnes * 1e18);
     triggerChangeOnElement("#offset-payment");
   });
+}
 
-  let dappHero = (<any>window)["dappHero"];
+function setupCO2kenDappHero () {
+  (<any>window).addEventListener(
+    'dappHeroConfigLoaded',
+    ({ detail: dappHero }) => {
+      setupCO2kenOutputsHandler(dappHero);
+    });
+}
+
+function setupCO2kenOutputsHandler (dappHero) {
   dappHero.listenToContractOutputChange(event => {
     //console.log("Event id", event.element.id);
     //console.log("Event Changes", event);
@@ -76,10 +86,6 @@ async function setupCO2kenEventHandlers () {
   });
 }
 
-
 jQuery(($) => {
-  // Try to workaround documentReady happening before dappHero is
-  // ready.  Soon dappHero will give us their own documentReady-like
-  // event handler to bind to.
-  setTimeout(async () => setupCO2ken(), 2000);
+  setupCO2ken();
 });
