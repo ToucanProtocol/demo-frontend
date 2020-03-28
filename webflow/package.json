@@ -15,9 +15,6 @@
   "directories": {
     "lib": "src"
   },
-  "files": [
-    "build"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/CO2ken/demo-frontend.git"
