@@ -7,7 +7,7 @@ let $ = jQuery;
 
 function triggerChangeOnElement(selector) {
   const elem = document.querySelector(selector);
-  const event = new Event('input');
+  const event = new Event("input");
   elem.dispatchEvent(event);
 }
 
@@ -41,7 +41,7 @@ async function setupCO2kenData () {
 }
 
 function setupCO2kenInputHandler () {
-  $("#tonnes-co2").on('input', function() {
+  $("#tonnes-co2").on("input", function() {
     let tonnes = $(this).val();
     let price = (<any>window).CO2kenPrice;
     if (!price) {
@@ -56,7 +56,7 @@ function setupCO2kenInputHandler () {
 
 function setupCO2kenDappHero () {
   (<any>window).addEventListener(
-    'dappHeroConfigLoaded',
+    "dappHeroConfigLoaded",
     ({ detail: dappHero }) => {
       setupCO2kenOutputsHandler(dappHero);
     });
