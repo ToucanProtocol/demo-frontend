@@ -103,7 +103,9 @@ function updatePaymentFields (tonnes) {
 
   let dai = price * tonnes;
   $("#offset-dai").val(dai + " DAI");
-  $("#offset-payment").val(dai * 1e18);
+  let payment = dai * 1e18;
+  $("#offset-payment").val(payment);
+  $("#offset-payment").attr("value", payment);
   // Make sure dappHero knows about the new value:
   triggerChangeOnElement("#offset-payment");
 }
