@@ -22,7 +22,7 @@
   "scripts": {
     "compile": "tsc",
     "parcel": "parcel build --public-url . src/dapp.ts",
-    "build": "npm run compile && npm run parcel"
+    "build": "$npm_execpath run compile && $npm_execpath run parcel"
   },
   "bugs": {
     "url": "https://github.com/CO2ken/demo-frontend/issues"
