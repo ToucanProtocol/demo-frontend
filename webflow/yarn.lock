@@ -2131,10 +2131,10 @@ etag@~1.8.1:
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
   integrity sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc=
 
-eth-co2@^0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/eth-co2/-/eth-co2-0.0.6.tgz#e006b0acb3efb19a4a911411f70943a371b9f062"
-  integrity sha512-o45A7NMTwK7njvobl/KatbwkbTDt0R8nbITpQxUFQhdDiZSa2rVO3UC1XAjZyAr1sA6K/pcgvs3pbAgiq1SEGg==
+eth-co2@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/eth-co2/-/eth-co2-0.0.7.tgz#7f8ef1f4ce17d58a104450f8f681831147683ab7"
+  integrity sha512-Z3X3lW/lS3/jJx+6AonhsUqFX3t8X8rKJUhEP3nPTtgk5WLrKcwJND2jY2TFbTfX+EDM1YWPPgXczCvToKNayA==
   dependencies:
     babel-polyfill "^6.26.0"
     ethers "^4.0.41"
