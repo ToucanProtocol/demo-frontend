@@ -41,6 +41,10 @@ async function setupCO2kenData (dappHero) {
   (<any>window).co2ken = co2ken;
   console.log("window.co2ken is now:", co2ken);
 
+  if (co2ken.price) {
+    $("#field-token-price").val(co2ken.price + " DAI");
+  }
+
   if (co2ken.gasCarbonFootprint) {
     let grammes = co2ken.gasCarbonFootprint / 1e12;
     $("#field-co2-gas").val(grammes.toFixed(2) + "g CO2");
