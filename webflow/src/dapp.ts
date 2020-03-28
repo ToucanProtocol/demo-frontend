@@ -52,12 +52,16 @@ async function updateCO2kenData () {
   let co2ken = (<any>window).co2ken;
   let provider = co2ken.provider;
 
-  co2ken.price = await ethco2.getCo2kenPrice(provider);
-  if (co2ken.price) {
-    $("#field-token-price").val(co2ken.price + " DAI");
-    let tonnes = $("#tonnes-co2").val();
-    if (tonnes != "") {
-      updatePaymentFields(tonnes);
+  let newPrice = await ethco2.getCo2kenPrice(provider);
+  if (newPrice) {
+    newPrice = newPrice.toNumber();
+    if (!co2ken.price || co2ken.price != newPrice) {
+      co2ken.price = newPrice;
+      $("#field-token-price").val(co2ken.price + " DAI");
+      let tonnes = $("#tonnes-co2").val();
+      if (tonnes != "") {
+        updatePaymentFields(tonnes);
+      }
     }
   }
 
@@ -109,11 +113,19 @@ function updatePaymentFields (tonnes) {
 
   let dai = price * tonnes;
   $("#offset-dai").val(dai + " DAI");
+  flashElement("#offset-dai");
   let payment = dai * 1e18;
   $("#offset-payment").val(payment);
   $("#offset-payment").attr("value", payment);
   // Make sure dappHero knows about the new value:
   triggerChangeOnElement("#offset-payment");
+}
+
+function flashElement (selector) {
+  $(selector)
+    .stop(true)
+    .animate({ backgroundColor: "#ffab5e" }, 500)
+    .animate({ backgroundColor: "#ffffff" }, 400);
 }
 
 function setupCO2kenDappHero () {
