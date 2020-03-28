@@ -11,10 +11,9 @@ function triggerChangeOnElement(selector) {
   elem.dispatchEvent(event);
 }
 
-function getProvider () {
-  let dappHero = (<any>window).dappHero;
+function getProvider (dappHero) {
   if (dappHero && dappHero.provider) {
-    console.log("dappHero.provider:", dappHero.provider);
+    // console.log("dappHero.provider:", dappHero.provider);
     // FIXME
     // return dappHero.provider;
   }
@@ -26,13 +25,12 @@ function getProvider () {
 
 async function setupCO2ken () {
   setupCO2kenInputHandler();
-  setupCO2kenDappHero();
-  await setupCO2kenData();
+  await setupCO2kenDappHero();
 }
 
-async function setupCO2kenData () {
+async function setupCO2kenData (dappHero) {
   console.log("setupCO2kenData");
-  let provider = getProvider();
+  let provider = getProvider(dappHero);
   (<any>window).co2ken_provider = provider;
   //const signer = provider.getSigner();
   let price = await ethco2.getCo2kenPrice(provider);
@@ -57,8 +55,11 @@ function setupCO2kenInputHandler () {
 function setupCO2kenDappHero () {
   (<any>window).addEventListener(
     "dappHeroConfigLoaded",
-    ({ detail: dappHero }) => {
+    async ({ detail: dappHero }) => {
+      console.log("dappHeroConfigLoaded;\ndappHero:", dappHero,
+                  "\ndappHero.provider:", dappHero.provider)
       setupCO2kenOutputsHandler(dappHero);
+      await setupCO2kenData(dappHero);
     });
 }
 
