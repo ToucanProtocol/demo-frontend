@@ -10,8 +10,8 @@
     "co2",
     "ethereum"
   ],
-  "types": "src/dapp.d.ts",
-  "main": "src/dapp.ts",
+  "types": "dist/dapp.d.ts",
+  "main": "dist/dapp.js",
   "directories": {
     "lib": "src"
   },
