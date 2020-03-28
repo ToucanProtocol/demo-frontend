@@ -11,20 +11,20 @@ function triggerChangeOnElement(selector) {
   elem.dispatchEvent(event);
 }
 
-function getProvider () {
+function getProvider() {
   let w3p = new ethers.providers.Web3Provider((<any>window).web3.currentProvider);
   console.log("ethers web3 currentProvider:", w3p);
   return w3p;
 }
 
-async function setupCO2ken () {
+async function setupCO2ken() {
   setupCO2kenProvider();
   setupCO2kenData();
   setupCO2kenInputHandler();
   await setupCO2kenDappHero();
 }
 
-function setupCO2kenProvider () {
+function setupCO2kenProvider() {
   let provider = getProvider();
   //const signer = provider.getSigner();
   let co2ken = {
@@ -33,7 +33,7 @@ function setupCO2kenProvider () {
   (<any>window).co2ken = co2ken;
 }
 
-async function setupCO2kenData () {
+async function setupCO2kenData() {
   await updateCO2kenData();
 
   let tonnes = $("#tonnes-co2");
@@ -46,7 +46,7 @@ async function setupCO2kenData () {
   (<any>window).setInterval(async () => { updateCO2kenData(); }, 2000);
 }
 
-async function updateCO2kenData () {
+async function updateCO2kenData() {
   console.debug("updateCO2kenData() called");
 
   let co2ken = (<any>window).co2ken;
@@ -92,7 +92,7 @@ async function updateCO2kenData () {
   console.debug("window.co2ken is now:", co2ken);
 }
 
-function setupCO2kenInputHandler () {
+function setupCO2kenInputHandler() {
   $("#tonnes-co2").on("input", function() {
     let tonnes = $(this).val();
     updatePaymentFields(tonnes);
@@ -128,7 +128,7 @@ function flashElement (selector) {
     .animate({ backgroundColor: "#ffffff" }, 400);
 }
 
-function setupCO2kenDappHero () {
+function setupCO2kenDappHero() {
   (<any>window).addEventListener(
     "dappHeroConfigLoaded",
     async ({ detail: dappHero }) => {
@@ -138,7 +138,7 @@ function setupCO2kenDappHero () {
     });
 }
 
-function setupCO2kenOutputsHandler (dappHero) {
+function setupCO2kenOutputsHandler(dappHero) {
   dappHero.listenToContractOutputChange(event => {
     //console.log("Event id", event.element.id);
     //console.log("Event Changes", event);
