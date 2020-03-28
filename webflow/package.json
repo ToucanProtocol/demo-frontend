@@ -13,8 +13,7 @@
   "types": "src/dapp.d.ts",
   "main": "src/dapp.ts",
   "directories": {
-    "lib": "build",
-    "test": "__tests__"
+    "lib": "src"
   },
   "files": [
     "build"
