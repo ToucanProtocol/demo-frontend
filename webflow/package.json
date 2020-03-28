@@ -10,8 +10,8 @@
     "co2",
     "ethereum"
   ],
-  "types": "lib/index",
-  "main": "lib/index",
+  "types": "src/dapp.d.ts",
+  "main": "src/dapp.ts",
   "directories": {
     "lib": "build",
     "test": "__tests__"
