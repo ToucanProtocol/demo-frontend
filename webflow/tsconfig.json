@@ -5,7 +5,11 @@
     "sourceMap": true,
     "rootDir": "src",
     "outDir": "./dist",
-    "declaration": true
+    "declaration": true,
+    "baseUrl": ".",
+    "paths": {
+      "ethers/providers": ["node_modules/ethers/providers"]
+    }
   },
   "include": ["src"]
 }
