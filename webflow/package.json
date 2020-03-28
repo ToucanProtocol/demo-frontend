@@ -30,7 +30,7 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "ethers": "^4.0.41",
-    "eth-co2": "^0.0.2"
+    "eth-co2": "^0.0.3"
   },
   "devDependencies": {
     "@types/node": "^13.5.0",
