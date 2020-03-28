@@ -37,7 +37,7 @@ async function setupCO2kenData () {
   //const signer = provider.getSigner();
   let price = await ethco2.getCo2kenPrice(provider);
   (<any>window).CO2kenPrice = price;
-  console.log("window.CO2kenPrice is now:", price);
+  console.log("window.CO2kenPrice is now:", price.toNumber());
 }
 
 function setupCO2kenInputHandler () {
