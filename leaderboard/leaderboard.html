@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for HTML5 for Linux version 5.6.0">
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src=
+  "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="leaderboard.js"></script>
+</head>
+<body>
+  <div class="div-block-button-right w-clearfix">
+    <a data-dh-feature="network" data-dh-property-enable="true"
+    href="#" class="button-green w-button">Press to connect</a>
+    <div id="eth-user-address" data-dh-feature="user"
+    data-dh-property-address="true"></div>
+  </div>
+  <div class="section">
+    <div class="w-container">
+      <h1 class="h1">CO2ken Leaderboard</h1>
+      <p class="paragraph-italic">Offset carbon. Win the game. Save
+      the planet.</p>
+      <div class="div-block-12">
+        <p class="paragraph-small-14">We automatically show you the
+        stats for the wallet address you're connected with.</p>
+        <div class="form-block w-form">
+          <form data-name="Eth-Address-Form" name=
+          "wf-form-Eth-Address-Form" id="wf-form-Eth-Address-Form">
+            <label for="name" class="field-label">Current
+            address</label>
+            <div class="w-row">
+              <div class="w-col w-col-8">
+                <input type="text" class="input-field w-input"
+                maxlength="256" name="eth-address-2" data-name=
+                "Eth Address 2" placeholder=
+                "e.g 0x6a1B0C693DD4AA99bA8E93247AA221Fb30525Cfe"
+                id="current-eth-address" required="">
+              </div>
+              <div class="column-6 w-col w-col-4"></div>
+            </div>
+            <textarea name="" style="display: none;"></textarea>
+          </form>
+          <div class="w-form-done"></div>
+          <div class="w-form-fail"></div>
+        </div>
+      </div>
+      <div class="div-block-11">
+        <p class="paragraph-small-14">You want to see how
+        <strong>another Ethereum address</strong> is doing?<br>
+        Type it into the field below and send that button into the
+        Ether.</p>
+        <div class="w-form">
+          <form id="wf-form-Eth-Address-Form" name=
+          "wf-form-Eth-Address-Form" data-name="Eth-Address-Form">
+            <label for="name" class="field-label">Ethereum
+            address</label>
+            <div class="w-row">
+              <div class="w-col w-col-8">
+                <input type="text" class="input-field w-input"
+                maxlength="256" name="Eth-Address" data-name=
+                "Eth Address" placeholder=
+                "e.g 0x6a1B0C693DD4AA99bA8E93247AA221Fb30525Cfe"
+                id="eth-address" required="">
+              </div>
+              <div class="w-col w-col-4">
+                <input type="submit" value="Switch to this address"
+                data-wait="Scanning the Ether ..." class=
+                "submit-button leaderboard-submit w-button"><a id=
+                "eth-address-search" href="#" class=
+                "button-green leaderboad-green-button w-button">Show
+                stats for this address</a>
+              </div>
+            </div>
+            <textarea name="" style="display: none;"></textarea>
+          </form>
+          <div class="w-form-done"></div>
+          <div class="w-form-fail"></div>
+        </div>
+      </div>
+      <div class="columns-3 w-row">
+        <div class="column-4 w-col w-col-4">
+          <div class="paragraph-big-16">
+            Your place on<br>
+            the leaderboard
+          </div>
+          <div class="big-centered-number">
+            #<span id="leaderboard-place">...</span>
+          </div>
+        </div>
+        <div class="w-col w-col-4">
+          <div class="paragraph-big-16">
+            Total number<br>
+            of retired CO2ken
+          </div>
+          <div id="total-retired-co2ken" class=
+          "big-centered-number">
+            32.001
+          </div>
+        </div>
+        <div class="w-col w-col-4">
+          <div class="paragraph-big-16">
+            Total amount of<br>
+            DAI spent
+          </div>
+          <div id="total-dai-spent" class="big-centered-number">
+            ...
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://package.dapphero.io/main-03-27-20-v1.js" id=
+  "dh-apiKey" data-api="1582929937465x256911328465649660"></script>
+</body>
+</html>
