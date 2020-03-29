@@ -2,14 +2,6 @@
 
 $(document).ready(function () {
 
-  let ethAddress;
-
-  setTimeout( function() {
-    ethAddress = $("#eth-user-address").val();
-    console.log(ethAddress);
-    $("#current-eth-address").val(ethAddress);
-  }, 2000);
-
   let leaderboardPlace = "...";
   let retiredCO2ken = "...";
   let totalDaiSpent = "...";
@@ -17,6 +9,19 @@ $(document).ready(function () {
   $("#leaderboard-place").text(leaderboardPlace);
   $("#total-retired-co2ken").text(retiredCO2ken);
   $("#total-dai-spent").text(totalDaiSpent);
+
+  window.addEventListener('dappHeroConfigLoaded', ({ detail: dappHero }) => {
+    if (dappHero.provider) {
+      let userAddress = dappHero.provider.selectedAddress;
+      if (userAddress) {
+        $("#current-eth-address").val(userAddress);
+        console.log("Currently connected user address", userAddress);
+      }
+      else {
+        console.warn("dappHero.provider non-null but no user address given");
+      }
+    }
+  });
 
   $("#eth-address-search").click(function () {
     let address = $("#eth-address-search").val();
