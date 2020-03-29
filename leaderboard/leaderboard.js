@@ -2,6 +2,14 @@
 
 $(document).ready(function () {
 
+    let ethAddress;
+    
+    setTimeout( function() {
+        ethAddress = $("#eth-user-address").val();
+	    console.log(ethAddress);
+        $("#current-eth-address").val(ethAddress);
+    }, 2000);
+    
     let leaderboardPlace = "...";
     let retiredCO2ken = "...";
     let totalDaiSpent = "...";
