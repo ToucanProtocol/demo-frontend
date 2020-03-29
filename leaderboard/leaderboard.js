@@ -1,4 +1,4 @@
-// <script src="https://raw.githubusercontent.com/CO2ken/demo-frontend/master/leaderboard/index.js"></script>
+// <script src="https://raw.githubusercontent.com/CO2ken/demo-frontend/master/leaderboard/leaderboard.js"></script>
 
 $(document).ready(function () {
 
