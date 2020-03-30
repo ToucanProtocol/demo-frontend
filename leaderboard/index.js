@@ -37,9 +37,8 @@ $(document).ready(function () {
             query: `{ userBalances(first: 20) { id, balance } }`
         }),
         success: function (result) {
-            let balances = result['data']['userBalances']
-            console.log(balances)
-            let content = "<table>"
+            let balances = result['data']['userBalances'],
+                content = "<table>"
             balances.forEach(userBalance => {
                 console.log(userBalance)
                 content += '<tr><td>' + userBalance['id'] + '</td><td>' + userBalance['balance'] + '</td></tr>'
