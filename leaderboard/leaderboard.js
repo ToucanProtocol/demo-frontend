@@ -1,52 +1,47 @@
+// <script src="https://raw.githubusercontent.com/CO2ken/demo-frontend/master/leaderboard/leaderboard.js"></script>
+
+function showUserResults(address) {
+  console.log(`Getting results for ${address}`);
+  $.ajax({
+    url: "https://api.thegraph.com/subgraphs/name/benesjan/co2ken",
+    contentType: "application/json", type: 'POST',
+    data: JSON.stringify({
+      query: `{ userBalances(id: \"${address}\") { balance } }`
+    }),
+    success: function (result) {
+      let retiredCO2kenDecimals = result['data']['userBalances'][0]['balance'];
+      retiredCO2ken = retiredCO2kenDecimals / 1e18;
+      console.log("Retired CO2ken:", retiredCO2kenDecimals);
+      $("#total-retired-co2ken").text(retiredCO2ken);
+    }
+  });
+}
+
 $(document).ready(function () {
+  let leaderboardPlace = "...";
+  let retiredCO2ken = "...";
+  let totalDaiSpent = "...";
 
-    let address = "0xaa81ca5483020798f1a8834e1fb227e1c02c8ede"
-    let contractAddress = "0x6a1b0c693dd4aa99ba8e93247aa221fb30525cfe"
+  $("#leaderboard-place").text(leaderboardPlace);
+  $("#total-retired-co2ken").text(retiredCO2ken);
+  $("#total-dai-spent").text(totalDaiSpent);
 
-    // Request for the total number of offsetted tokens
-    $.ajax({
-        url: "https://api.thegraph.com/subgraphs/name/benesjan/co2ken",
-        contentType: "application/json", type: 'POST',
-        data: JSON.stringify({
-            query: `{ contractBalances(id: \"${contractAddress}\") { offsetted } }`
-        }),
-        success: function (result) {
-            let contractOffsetted = result['data']['contractBalances'][0]['offsetted']
-            $("#contractOffsetted").html("<h1>Total number of retired CO2ken: " + contractOffsetted + "</h1>");
-        }
-    });
+  window.addEventListener('dappHeroConfigLoaded', ({ detail: dappHero }) => {
+    if (dappHero.provider) {
+      let userAddress = dappHero.provider.selectedAddress;
+      if (userAddress) {
+        $("#current-eth-address").val(userAddress);
+        console.log("Currently connected user address", userAddress);
+        showUserResults(userAddress);
+      }
+      else {
+        console.warn("dappHero.provider non-null but no user address given");
+      }
+    }
+  });
 
-    // Request for one address
-    $.ajax({
-        url: "https://api.thegraph.com/subgraphs/name/benesjan/co2ken",
-        contentType: "application/json", type: 'POST',
-        data: JSON.stringify({
-            query: `{ userBalances(id: \"${address}\") { balance } }`
-        }),
-        success: function (result) {
-            let userBalance = result['data']['userBalances'][0]['balance']
-            $("#userBalanceContainer").html("<h1>User Balance: " + userBalance + "</h1>");
-        }
-    });
-
-    // Request for top 20 addresses
-    $.ajax({
-        url: "https://api.thegraph.com/subgraphs/name/benesjan/co2ken",
-        contentType: "application/json", type: 'POST',
-        data: JSON.stringify({
-            query: `{ userBalances(first: 20) { id, balance } }`
-        }),
-        success: function (result) {
-            let balances = result['data']['userBalances']
-            console.log(balances)
-            let content = "<table>"
-            balances.forEach(userBalance => {
-                console.log(userBalance)
-                content += '<tr><td>' + userBalance['id'] + '</td><td>' + userBalance['balance'] + '</td></tr>'
-            })
-
-            content += "</table>"
-            $("#leaderboardContainer").append(content);
-        }
-    });
+  $("#eth-address-search").click(function () {
+    let address = $("#eth-address").val();
+    showUserResults(address);
+  });
 });
