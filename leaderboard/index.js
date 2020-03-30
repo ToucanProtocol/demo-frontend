@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     let address = "0xaa81ca5483020798f1a8834e1fb227e1c02c8ede"
-    let contractAddress = "0x6a1b0c693dd4aa99ba8e93247aa221fb30525cfe"
+    let contractAddress = "0x93ec2167da2a83fbbe61567f67f71750c13b9c09"
 
     // Request for the total number of offsetted tokens
     $.ajax({
