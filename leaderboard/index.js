@@ -4,14 +4,18 @@ $(document).ready(function () {
     let contractAddress = "0x93ec2167da2a83fbbe61567f67f71750c13b9c09"
 
     // Request for the total number of offsetted tokens
+    let query = `{ contractBalance(id: "${contractAddress}") { offsetted daiReceived } }`;
+    console.log(query);
     $.ajax({
         url: "https://api.thegraph.com/subgraphs/name/benesjan/co2ken",
         contentType: "application/json", type: 'POST',
         data: JSON.stringify({
-            query: `{ contractBalances(id: \"${contractAddress}\") { offsetted, daiReceived } }`
+            query: query
         }),
         success: function (result) {
-            let contractBalance = result['data']['contractBalances'][0]
+            console.log("contractBalance", result);
+            let contractBalance = result['data']['contractBalance']
+
             $("#contractOffsetted").html("<h1>Total number of retired CO2ken: " + contractBalance['offsetted'] + "</h1>");
             $("#daiReceived").html("<h1>Total amount of DAI spent: " + contractBalance['daiReceived'] + "</h1>");
         }
