@@ -40,9 +40,10 @@ $(document).ready(function () {
         url: "https://api.thegraph.com/subgraphs/name/benesjan/co2ken",
         contentType: "application/json", type: 'POST',
         data: JSON.stringify({
-            query: `{ userBalances(first: 20) { id, balance } }`
+            query: `{ userBalances(first: 20) { id balance } }`
         }),
         success: function (result) {
+          console.log("userBalances", result);
             let balances = result['data']['userBalances'],
                 content = "<table>"
             balances.forEach(userBalance => {
