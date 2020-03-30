@@ -8,11 +8,12 @@ $(document).ready(function () {
         url: "https://api.thegraph.com/subgraphs/name/benesjan/co2ken",
         contentType: "application/json", type: 'POST',
         data: JSON.stringify({
-            query: `{ contractBalances(id: \"${contractAddress}\") { offsetted } }`
+            query: `{ contractBalances(id: \"${contractAddress}\") { offsetted, daiReceived } }`
         }),
         success: function (result) {
-            let contractOffsetted = result['data']['contractBalances'][0]['offsetted']
-            $("#contractOffsetted").html("<h1>Total number of retired CO2ken: " + contractOffsetted + "</h1>");
+            let contractBalance = result['data']['contractBalances'][0]
+            $("#contractOffsetted").html("<h1>Total number of retired CO2ken: " + contractBalance['offsetted'] + "</h1>");
+            $("#daiReceived").html("<h1>Total amount of DAI spent: " + contractBalance['daiReceived'] + "</h1>");
         }
     });
 
@@ -24,6 +25,7 @@ $(document).ready(function () {
             query: `{ userBalances(id: \"${address}\") { balance } }`
         }),
         success: function (result) {
+            console.log(result)
             let userBalance = result['data']['userBalances'][0]['balance']
             $("#userBalanceContainer").html("<h1>User Balance: " + userBalance + "</h1>");
         }
@@ -40,7 +42,6 @@ $(document).ready(function () {
             let balances = result['data']['userBalances'],
                 content = "<table>"
             balances.forEach(userBalance => {
-                console.log(userBalance)
                 content += '<tr><td>' + userBalance['id'] + '</td><td>' + userBalance['balance'] + '</td></tr>'
             })
 
