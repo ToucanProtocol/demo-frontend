@@ -26,11 +26,11 @@ $(document).ready(function () {
         url: "https://api.thegraph.com/subgraphs/name/benesjan/co2ken",
         contentType: "application/json", type: 'POST',
         data: JSON.stringify({
-            query: `{ userBalances(id: \"${address}\") { balance } }`
+            query: `{ userBalance(id: \"${address}\") { balance } }`
         }),
         success: function (result) {
-            console.log(result)
-            let userBalance = result['data']['userBalances'][0]['balance']
+            console.log("userBalance", result)
+            let userBalance = result['data']['userBalance']['balance']
             $("#userBalanceContainer").html("<h1>User Balance: " + userBalance + "</h1>");
         }
     });
