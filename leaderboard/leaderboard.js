@@ -29,7 +29,7 @@ function showContractTotals() {
 
 function showUserResults(address) {
   console.log(`Getting results for ${address}`);
-  let query = `{ userBalance(id: \"${address.toLowerCase()}\") { id balance } }`;
+  let query = `{ userBalance(id: \"${address.toLowerCase()}\") { id balance daiSpent } }`;
   console.log(query);
   $.ajax({
     url: "https://api.thegraph.com/subgraphs/name/benesjan/co2ken",
@@ -44,10 +44,11 @@ function showUserResults(address) {
       }
       let retiredCO2kenDecimals = userBalance['balance'];
       retiredCO2ken = retiredCO2kenDecimals / 1e18;
+      let daiSpent = userBalance['daiSpent'] / 1e18;
       // let totalDaiSpent = ...;
       console.log("Retired CO2ken:", retiredCO2kenDecimals);
       $("#user-retired-co2kens").text(retiredCO2ken);
-      $("#user-dai-spent").text(retiredCO2ken * 10);
+      $("#user-dai-spent").text(daiSpent);
     }
   });
 }
@@ -58,7 +59,7 @@ function showLeaderBoard(userAddress) {
     url: "https://api.thegraph.com/subgraphs/name/benesjan/co2ken",
     contentType: "application/json", type: 'POST',
     data: JSON.stringify({
-      query: `{ userBalances(orderBy: balance, orderDirection: desc) { id balance } }`
+      query: `{ userBalances(orderBy: balance, orderDirection: desc) { id balance daiSpent } }`
     }),
     success: function (result) {
       console.log("userBalances", result);
@@ -73,6 +74,7 @@ function showLeaderBoard(userAddress) {
           </tr>`;
       balances.forEach((userBalance, i) => {
         let balance = (userBalance["balance"] / 1e18).toFixed(2);
+        let daiSpent = (userBalance["daiSpent"] / 1e18).toFixed(2);
         let address = userBalance["id"];
         let currentUser = address == userAddress;
         if (currentUser) {
@@ -84,7 +86,7 @@ function showLeaderBoard(userAddress) {
               <td class="userRank" align="left">${i + 1}</td>
               <td class="userAddress">${address}</td>
               <td class="userBalance" align="right">${balance}</td>
-              <td class="userDAI" align="right">${balance * 10}</td>
+              <td class="userDAI" align="right">${daiSpent}</td>
             </tr>`;
         }
       })
