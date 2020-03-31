@@ -31,6 +31,7 @@ function setupCO2kenProvider() {
   //const signer = provider.getSigner();
   let co2ken = {
     provider: provider,
+    ethco2: ethco2
   };
   (<any>window).co2ken = co2ken;
 }
