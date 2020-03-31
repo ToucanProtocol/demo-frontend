@@ -84,7 +84,7 @@ function showLeaderBoard(userAddress) {
       })
 
       content += "</table>"
-      $("#leaderboard-container").append(content);
+      $("#leaderboard-container").html(content);
     }
   });
 }
