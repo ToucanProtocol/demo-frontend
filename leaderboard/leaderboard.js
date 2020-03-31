@@ -52,7 +52,7 @@ function showUserResults(address) {
   });
 }
 
-function showLeaderBoard() {
+function showLeaderBoard(userAddress) {
   // Request for top 20 addresses
   $.ajax({
     url: "https://api.thegraph.com/subgraphs/name/benesjan/co2ken",
@@ -73,10 +73,11 @@ function showLeaderBoard() {
           </tr>`;
       balances.forEach((userBalance, i) => {
         let balance = (userBalance["balance"] / 1e18).toFixed(2);
+        let address = userBalance["id"];
         content += `
-          <tr>
+          <tr${address == userAddress ? ' class="current-user"' : ''}>
             <th class="userRank" align="left">${i + 1}</th>
-            <td class="userAddress">${userBalance['id']}</td>
+            <td class="userAddress">${address}</td>
             <td class="userBalance" align="right">${balance}</td>
             <td class="userDAI" align="right">${balance * 10}</td>
           </tr>`;
@@ -98,7 +99,6 @@ $(document).ready(function () {
   $("#user-dai-spent").text(totalDaiSpent);
 
   showContractTotals();
-  showLeaderBoard();
 
   window.addEventListener('dappHeroConfigLoaded', ({ detail: dappHero }) => {
     if (dappHero.provider) {
@@ -107,6 +107,7 @@ $(document).ready(function () {
         $("#current-eth-address").val(userAddress);
         console.log("Currently connected user address", userAddress);
         showUserResults(userAddress);
+        showLeaderBoard(userAddress);
       }
       else {
         console.warn("dappHero.provider non-null but no user address given");
