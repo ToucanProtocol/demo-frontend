@@ -74,8 +74,12 @@ function showLeaderBoard(userAddress) {
       balances.forEach((userBalance, i) => {
         let balance = (userBalance["balance"] / 1e18).toFixed(2);
         let address = userBalance["id"];
+        let currentUser = address == userAddress;
+        if (currentUser) {
+          $("#leaderboard-rank").text(i + 1);
+        }
         content += `
-          <tr${address == userAddress ? ' class="current-user"' : ''}>
+          <tr${currentUser ? ' class="current-user"' : ''}>
             <td class="userRank" align="left">${i + 1}</td>
             <td class="userAddress">${address}</td>
             <td class="userBalance" align="right">${balance}</td>
