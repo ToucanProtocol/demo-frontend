@@ -90,13 +90,9 @@ function showLeaderBoard(userAddress) {
 }
 
 $(document).ready(function () {
-  let leaderboardPlace = "...";
-  let retiredCO2ken = "...";
-  let totalDaiSpent = "...";
-
-  $("#leaderboard-rank").text(2);
-  $("#user-retired-co2kens").text(retiredCO2ken);
-  $("#user-dai-spent").text(totalDaiSpent);
+  $("#leaderboard-rank").text("...");
+  $("#user-retired-co2kens").text("...");
+  $("#user-dai-spent").text("...");
 
   showContractTotals();
 
