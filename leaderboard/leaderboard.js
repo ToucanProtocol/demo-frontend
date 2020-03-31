@@ -83,7 +83,7 @@ function showLeaderBoard(userAddress) {
         if (i < 20) {
           content += `
             <tr${currentUser ? ' class="current-user"' : ''}>
-              <td class="userRank" align="left">${i + 1}</td>
+              <td class="userRank" align="left">#${i + 1}</td>
               <td class="userAddress">${address}</td>
               <td class="userBalance" align="right">${balance}</td>
               <td class="userDAI" align="right">${daiSpent}</td>
