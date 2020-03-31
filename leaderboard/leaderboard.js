@@ -120,5 +120,6 @@ $(document).ready(function () {
   $("#eth-address-search").click(function () {
     let address = $("#eth-address").val();
     showUserResults(address);
+    showLeaderBoard(address);
   });
 });
