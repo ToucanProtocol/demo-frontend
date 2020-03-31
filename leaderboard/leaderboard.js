@@ -58,7 +58,7 @@ function showLeaderBoard(userAddress) {
     url: "https://api.thegraph.com/subgraphs/name/benesjan/co2ken",
     contentType: "application/json", type: 'POST',
     data: JSON.stringify({
-      query: `{ userBalances(first: 20, orderBy: balance, orderDirection: desc) { id balance } }`
+      query: `{ userBalances(orderBy: balance, orderDirection: desc) { id balance } }`
     }),
     success: function (result) {
       console.log("userBalances", result);
@@ -78,13 +78,15 @@ function showLeaderBoard(userAddress) {
         if (currentUser) {
           $("#leaderboard-rank").text(i + 1);
         }
-        content += `
-          <tr${currentUser ? ' class="current-user"' : ''}>
-            <td class="userRank" align="left">${i + 1}</td>
-            <td class="userAddress">${address}</td>
-            <td class="userBalance" align="right">${balance}</td>
-            <td class="userDAI" align="right">${balance * 10}</td>
-          </tr>`;
+        if (i < 20) {
+          content += `
+            <tr${currentUser ? ' class="current-user"' : ''}>
+              <td class="userRank" align="left">${i + 1}</td>
+              <td class="userAddress">${address}</td>
+              <td class="userBalance" align="right">${balance}</td>
+              <td class="userDAI" align="right">${balance * 10}</td>
+            </tr>`;
+        }
       })
 
       content += "</table>"
