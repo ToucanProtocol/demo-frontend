@@ -107,8 +107,9 @@ $(document).ready(function () {
   window.addEventListener('dappHeroConfigLoaded', ({ detail: dappHero }) => {
     if (dappHero.provider) {
       let userAddress = dappHero.provider.selectedAddress;
+      window.userAddress = userAddress;
       if (userAddress) {
-        $("#current-eth-address").val(userAddress);
+        $("#eth-address").val(userAddress);
         console.log("Currently connected user address", userAddress);
         showUserResults(userAddress);
         showLeaderBoard(userAddress);
@@ -123,5 +124,11 @@ $(document).ready(function () {
     let address = $("#eth-address").val();
     showUserResults(address);
     showLeaderBoard(address);
+  });
+
+  $("#reset-wallet-address").click(function () {
+    $("#eth-address").val(window.userAddress);
+    showUserResults(window.userAddress);
+    showLeaderBoard(window.userAddress);
   });
 });
