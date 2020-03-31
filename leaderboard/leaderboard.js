@@ -76,7 +76,7 @@ function showLeaderBoard(userAddress) {
         let address = userBalance["id"];
         content += `
           <tr${address == userAddress ? ' class="current-user"' : ''}>
-            <th class="userRank" align="left">${i + 1}</th>
+            <td class="userRank" align="left">${i + 1}</td>
             <td class="userAddress">${address}</td>
             <td class="userBalance" align="right">${balance}</td>
             <td class="userDAI" align="right">${balance * 10}</td>
