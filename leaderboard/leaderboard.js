@@ -64,11 +64,11 @@ function showLeaderBoard() {
       console.log("userBalances", result);
       let balances = result['data']['userBalances'];
       let content = `
-        <table>
+        <table id="leaderboard">
           <tr>
             <th class="userRank" align="left">Rank</th>
-            <th class="userAddress" align="left">Address</th>
-            <th class="userBalance">Tonnes of CO2 offset</th>
+            <th class="userAddress" align="left">Wallet address</th>
+            <th class="userBalance">Tonnes of <br/>CO2 offset</th>
             <th class="userDAI">DAI spent</th>
           </tr>`;
       balances.forEach((userBalance, i) => {
