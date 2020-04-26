@@ -4,7 +4,7 @@
   "description": "dApp code for webflow demo",
   "author": "Adam Spiers <blockchain@adamspiers.org>",
   "homepage": "https://github.com/CO2ken/demo-frontend",
-  "license": "ISC",
+  "license": "AGPL-3.0-only",
   "keywords": [
     "carbon",
     "co2",
